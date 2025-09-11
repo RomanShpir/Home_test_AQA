@@ -4,6 +4,7 @@ from requests.structures import CaseInsensitiveDict
 
 
 class ResponseWrapper:
+    """A wrapper around requests.Response to provide additional functionality."""
     def __init__(self, response: requests.Response):
         self._response = response
 

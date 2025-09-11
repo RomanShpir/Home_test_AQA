@@ -1,30 +1,35 @@
-from main_api import Api
-from main_ui import Ui
-
-import os, os.path, stat
+import os
+import os.path
+import stat
 from typing import Generator
+
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import WebDriverException
+from webdriver_manager.chrome import ChromeDriverManager
+
+from main_api import Api
+from main_ui import Ui
 
 
 @pytest.fixture(scope="function", name='api')
-def tw_api() -> Generator[Api, None, None]:
+def tf_api() -> Generator[Api, None, None]:
     """
+    Fixture to provide an Api instance for tests.
 
-    :return:
+    :return: Generator yielding an Api instance
     """
     api_base_url = os.getenv(key='API_URL')
     api_access_key = os.getenv(key='API_ACCESS_KEY')
     yield Api(api_base_url, api_access_key)
 
 @pytest.fixture(scope="function", name="ui")
-def tw_ui() -> Generator[Ui, None, None]:
+def tf_ui() -> Generator[Ui, None, None]:
     """
+    Fixture to provide an Ui instance for tests.
 
-    :return:
+    :return: Generator yielding an Ui instance
     """
     driver_options = webdriver.ChromeOptions()
 

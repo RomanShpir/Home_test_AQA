@@ -9,3 +9,6 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# Ignore all PNG images in the entire repository
+*.png
