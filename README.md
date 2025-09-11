@@ -60,7 +60,7 @@ pytest -v regression/api_tests
 
 Below is a GIF showing how the UI test runs in mobile emulation:
 
-![UI Test Execution](automation-home-work/ui_test.gif)
+![UI Test Execution](ui_test.gif)
 
 ## 🧪 Page Object Structure & Main Classes
 
