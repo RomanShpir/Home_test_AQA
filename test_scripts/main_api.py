@@ -1,4 +1,3 @@
-
 from IpStackPage import IpStackPage
 
 

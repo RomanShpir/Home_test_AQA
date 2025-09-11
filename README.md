@@ -26,26 +26,20 @@ pip install -r automation-home-work/requirements.txt
 
 ## 🔧 Environment Variables
 
-To get API_ACCESS_KEY, sign up for a free API key at [ipstack.com](https://ipstack.com/signup/free).
+### Create a pytest.ini file in the automation-home-work/test_scripts folder.
+```
+[pytest]
 
-Add these before running tests:
+env =
+    ; UI General
+    DEFAULT_URL = https://m.twitch.tv/
 
-```bash
-# UI (Twitch)
-export DEFAULT_URL="https://www.twitch.tv"
-
-# API (IPstack)
-export API_URL="https://api.ipstack.com"
-export API_ACCESS_KEY="YOUR_IPSTACK_API_KEY"
+    ; API General
+    API_URL = http://api.ipstack.com
+    API_ACCESS_KEY = API_ACCESS_KEY
 ```
 
-On Windows (PowerShell):
-
-```powershell
-$env:DEFAULT_URL="https://www.twitch.tv"
-$env:API_URL="https://api.ipstack.com"
-$env:API_ACCESS_KEY="YOUR_IPSTACK_API_KEY"
-```
+### To get API_ACCESS_KEY, sign up for a free API key at [ipstack.com](https://ipstack.com/signup/free).
 
 ## ▶ How to Run Tests
 
@@ -61,6 +55,12 @@ pytest -v regression/ui_tests
 # Run only API tests
 pytest -v regression/api_tests
 ```
+
+## 🎥 Demo – UI Test Execution
+
+Below is a GIF showing how the UI test runs in mobile emulation:
+
+![UI Test Execution](automation-home-work/ui_test.gif)
 
 ## 🧪 Page Object Structure & Main Classes
 

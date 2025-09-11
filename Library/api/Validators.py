@@ -2,12 +2,14 @@ from __future__ import annotations
 from typing import Iterable
 from IpStackPage import ResponseWrapper
 
+
 class Validator:
     """Base class for all validators."""
 
     def validate(self, response: ResponseWrapper) -> None:  # pragma: no cover
         """Validate the response. To be implemented by subclasses."""
         raise NotImplementedError
+
 
 class StatusCodeIs(Validator):
     """Validator to check if the response status code matches the expected value."""
@@ -19,6 +21,7 @@ class StatusCodeIs(Validator):
         code = response.status_code
         if code != self.expected:
             raise AssertionError(f"Status {code} != {self.expected}. Body: {response.response.text[:400]}")
+
 
 class HeaderStartsWith(Validator):
     """Validator to check if a specific header starts with a given prefix."""
@@ -32,6 +35,7 @@ class HeaderStartsWith(Validator):
         if not actual.startswith(self.prefix):
             raise AssertionError(f"Header {self.header}='{actual}' does not start with '{self.prefix}'")
 
+
 class IsJSON(Validator):
     """Validator to check if the response is in JSON format."""
 
@@ -41,6 +45,7 @@ class IsJSON(Validator):
         if "json" not in ctype:
             raise AssertionError(f"Content-Type is not JSON: {ctype}")
         _ = response.json()
+
 
 class JsonFieldEquals(Validator):
     """Validator to check if a specific JSON field equals the expected value."""
@@ -55,6 +60,7 @@ class JsonFieldEquals(Validator):
         if actual != self.expected:
             raise AssertionError(f"JSON['{self.field}'] == {actual}, expected {self.expected}")
 
+
 class JsonHasKeys(Validator):
     """Validator to check if the JSON response contains specific keys."""
     def __init__(self, keys: Iterable[str]):
@@ -66,6 +72,7 @@ class JsonHasKeys(Validator):
         missing = [k for k in self.keys if k not in data]
         if missing:
             raise AssertionError(f"Missing JSON keys: {missing}. Got keys: {list(data.keys())[:30]}")
+
 
 class JsonExactKeys(Validator):
     """Validator to check if the JSON response contains exactly the specified keys."""
@@ -79,6 +86,7 @@ class JsonExactKeys(Validator):
         if actual != self.keys:
             raise AssertionError(f"JSON keys {actual} != expected {self.keys}")
 
+
 class IsXML(Validator):
     """Validator to check if the response is in XML format."""
 
@@ -87,6 +95,7 @@ class IsXML(Validator):
         ctype = response.headers.get("Content-Type", "")
         if "xml" not in ctype:
             raise AssertionError(f"Content-Type is not XML: {ctype}")
+
 
 class ContentContains(Validator):
     """Validator to check if the response content contains specific byte sequences."""

@@ -1,14 +1,9 @@
-import time
-
 from main_ui import Ui
 
 
-def test_ui_navigate_base_page(ui: Ui) -> None:
+def test_ui_navigate_base_page(ui: Ui):
     """
     Test to navigate to the base page and verify the title.
-
-    :param ui: Ui instance
-    :return: None
     """
     game_category = 'StarCraft II'
     ui.navigation.open_base_page()
@@ -21,4 +16,3 @@ def test_ui_navigate_base_page(ui: Ui) -> None:
     ui.browse_page.open_random_available_stream()
     ui.browse_page.wait_for_stream_to_load()
     ui.navigation.clear_popup_windows()
-    # time.sleep(10)

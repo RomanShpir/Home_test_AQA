@@ -1,4 +1,5 @@
 import random
+
 from BasePage import BasePage
 from selenium.webdriver.common.by import By
 from selenium.common import NoSuchElementException
