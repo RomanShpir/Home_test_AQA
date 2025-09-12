@@ -25,7 +25,7 @@ class Navigation(BasePage):
     def open_base_page(self) -> None:
         """
         Open the base URL from environment variables.        """
-        base_url = os.getenv(key='DEFAULT_URL')
+        base_url = os.getenv(key='UI_URL')
         self.driver.get(base_url)
 
     def scroll_bottom_of_page(self, times_to_scroll: int = 1) -> None:

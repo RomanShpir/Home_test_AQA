@@ -32,7 +32,7 @@ pip install -r automation-home-work/requirements.txt
 
 env =
     ; UI General
-    DEFAULT_URL = https://m.twitch.tv/
+    UI_URL = https://m.twitch.tv/
 
     ; API General
     API_URL = http://api.ipstack.com

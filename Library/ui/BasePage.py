@@ -15,12 +15,13 @@ class Locators:
 
 class BasePage:
     """
-
+    Class representing the base page of a web application, providing common methods for interaction and navigation.
     """
     def __init__(self, driver) -> None:
         """
+        Initialize the Base page object.
 
-        :param driver:
+        :param driver: Web driver instance
         """
         self.driver = driver
 
