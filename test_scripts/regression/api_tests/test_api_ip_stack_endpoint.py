@@ -1,6 +1,6 @@
 import pytest
 from main_api import Api
-from Validators import (
+from ValidatorsPage import (
     StatusCodeIs, IsJSON, JsonHasKeys, JsonFieldEquals, JsonExactKeys,
     IsXML, HeaderStartsWith, ContentContains
 )
