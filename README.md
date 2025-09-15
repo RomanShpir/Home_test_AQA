@@ -8,6 +8,8 @@ A small testing project that combines:
 
 ## ⚙️ Dependency Installation
 
+Testing framework was build using Python 3.10.
+
 ```bash
 # From the project root
 python -m venv .venv
