@@ -1,20 +1,24 @@
 import os
 import time
 
-from BasePage import BasePage
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
+
+from library.ui.BasePage import BasePage
 
 
 class Locators:
     """Locators for the Navigation page."""
+
     APP_USE_POPUP = (By.XPATH, "//*[contains(text(), 'Open') and contains(text(), 'App')]")
+
 
 class Navigation(BasePage):
     """
     Class for navigating the Twitch website.
     """
+
     def __init__(self, driver) -> None:
         """
         Initialize the Navigation page object.
@@ -24,8 +28,8 @@ class Navigation(BasePage):
 
     def open_base_page(self) -> None:
         """
-        Open the base URL from environment variables.        """
-        base_url = os.getenv(key='UI_URL')
+        Open the base URL from environment variables."""
+        base_url = os.getenv(key="UI_URL")
         self.driver.get(base_url)
 
     def scroll_bottom_of_page(self, times_to_scroll: int = 1) -> None:

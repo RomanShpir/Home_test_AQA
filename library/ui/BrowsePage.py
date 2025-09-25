@@ -1,8 +1,9 @@
 import random
 
-from BasePage import BasePage
-from selenium.webdriver.common.by import By
 from selenium.common import NoSuchElementException
+from selenium.webdriver.common.by import By
+
+from library.ui.BasePage import BasePage
 
 
 class Locators:
@@ -17,10 +18,10 @@ class BrowsePage(BasePage):
     """
     Page object for the Browse page.
     """
+
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
-
 
     def input_search_category_name(self, category_name: str) -> None:
         """
@@ -54,7 +55,9 @@ class BrowsePage(BasePage):
         """
         xpath = self._format_tuple(Locators.CATEGORY_LINK, category_name)
         elements = self.find_elements_by_xpath(xpath)
-        assert len(elements) > 0, f"Category with name '{category_name}' not found in search results"
+        assert len(elements) > 0, (
+            f"Category with name '{category_name}' not found in search results"
+        )
 
     def open_random_available_stream(self) -> None:
         """
