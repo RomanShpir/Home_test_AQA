@@ -1,33 +1,98 @@
-name: Tests
+name: Run and Post
 
 on:
   workflow_dispatch:
+    inputs:
+      suite:
+        description: "Which tests to run?"
+        type: choice
+        required: true
+        default: both
+        options:
+          - api
+          - ui
+          - both
+      use_ipstack_secret:
+        description: "Provide IPSTACK_API_KEY from repo secrets (for positive API tests)"
+        type: boolean
+        required: true
+        default: true
+
+concurrency:
+  group: run-and-post-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   api-tests:
+    if: ${{ github.event.inputs.suite == 'api' || github.event.inputs.suite == 'both' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.10"
           cache: "pip"
+
       - name: Install deps
         run: |
           python -m pip install -U pip
           pip install -r requirements.txt
+
       - name: Run API tests
         env:
-          IPSTACK_API_KEY: ${{ secrets.IPSTACK_API_KEY }}
+          API_ONLY: "1"# disables UI fixtures in root conftest
           IPSTACK_INVALID_KEY: foo
+          # If the switch is off, positive cases will be skipped:
+          IPSTACK_API_KEY: ${{ github.event.inputs.use_ipstack_secret == 'true' && secrets.IPSTACK_API_KEY || '' }}
         run: |
           export PYTHONPATH="$PYTHONPATH:$(pwd)"
           mkdir -p reports artifacts
           pytest -q test_scripts/regression/api_tests --maxfail=1 --disable-warnings \
             --html=reports/api-report.html --self-contained-html
-      - name: Upload reports
+
+      - name: Upload API report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: api-pytest-report
+          path: reports/
+
+  ui-tests:
+    if: ${{ github.event.inputs.suite == 'ui' || github.event.inputs.suite == 'both' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: "pip"
+
+      - name: Install deps
+        run: |
+          python -m pip install -U pip
+          pip install -r requirements.txt
+
+      # If the tests work with Chrome/Selenium, install Chrome.
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Run UI tests
+        env:
+          # here we do NOT set API_ONLY so that UI fixtures rise
+          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
+        run: |
+          export PYTHONPATH="$PYTHONPATH:$(pwd)"
+          mkdir -p reports artifacts
+          pytest -q test_scripts/regression/ui_tests --maxfail=1 --disable-warnings \
+            --html=reports/ui-report.html --self-contained-html
+
+      - name: Upload UI report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-pytest-report
           path: reports/
