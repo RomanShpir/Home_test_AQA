@@ -83,7 +83,7 @@ jobs:
 
       - name: Run UI tests
         env:
-          UI_BASE_URL: ${{ vars.UI_URL }}
+          UI_URL: ${{ vars.UI_URL }}
           # here we do NOT set API_ONLY so that UI fixtures rise
           CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: |
