@@ -21,7 +21,7 @@ def tf_api() -> Generator[Api, None, None]:
     :return: Generator yielding an Api instance
     """
     api_base_url = os.getenv(key="API_URL")
-    api_access_key = os.getenv(key="API_ACCESS_KEY")
+    api_access_key = os.getenv(key="IPSTACK_API_KEY")
     yield Api(api_base_url, api_access_key)
 
 
