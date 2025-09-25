@@ -38,10 +38,10 @@ env =
 
     ; API General
     API_URL = http://api.ipstack.com
-    API_ACCESS_KEY = API_ACCESS_KEY
+    IPSTACK_API_KEY = IPSTACK_API_KEY
 ```
 
-### To get API_ACCESS_KEY, sign up for a free API key at [ipstack.com](https://ipstack.com/signup/free).
+### To get IPSTACK_API_KEY, sign up for a free API key at [ipstack.com](https://ipstack.com/signup/free).
 
 ## ▶ How to Run Tests
 
