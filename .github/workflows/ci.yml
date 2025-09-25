@@ -1,39 +1,23 @@
 name: Tests
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
-    paths:
-      - "test_scripts/**"
-      - "library/**"
-      - "requirements.txt"
-      - "pyproject.toml"
   workflow_dispatch:
-
-concurrency:
-  group: tests-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   api-tests:
-    if: ${{ github.event.pull_request.draft == false || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: "pip"
-
       - name: Install deps
         run: |
           python -m pip install -U pip
           pip install -r requirements.txt
-
       - name: Run API tests
         env:
-          API_ONLY: "1"
           IPSTACK_API_KEY: ${{ secrets.IPSTACK_API_KEY }}
           IPSTACK_INVALID_KEY: foo
         run: |
@@ -41,7 +25,6 @@ jobs:
           mkdir -p reports artifacts
           pytest -q test_scripts/regression/api_tests --maxfail=1 --disable-warnings \
             --html=reports/api-report.html --self-contained-html
-
       - name: Upload reports
         if: always()
         uses: actions/upload-artifact@v4

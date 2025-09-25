@@ -1,5 +1,4 @@
 import pytest
-from main_api import Api
 from ValidatorsPage import (
     ContentContains,
     HeaderStartsWith,
@@ -10,6 +9,8 @@ from ValidatorsPage import (
     JsonHasKeys,
     StatusCodeIs,
 )
+
+from test_scripts.main_api import Api
 
 # ---- STANDARD LOOKUP CASES ----
 standard_cases = [

@@ -1,4 +1,4 @@
-from main_ui import Ui
+from test_scripts.main_ui import Ui
 
 
 def test_ui_navigate_base_page(ui: Ui):
