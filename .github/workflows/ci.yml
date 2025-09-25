@@ -38,13 +38,12 @@ jobs:
           IPSTACK_API_KEY: ${{ secrets.IPSTACK_API_KEY }}
           IPSTACK_INVALID_KEY: foo
         run: |
+          export PYTHONPATH="$PYTHONPATH:$(pwd)"
           mkdir -p reports artifacts
-          pytest -q tests/api --maxfail=1 --disable-warnings \
+          pytest -q test_scripts/regression/api_tests --maxfail=1 --disable-warnings \
             --html=reports/api-report.html --self-contained-html
 
-      # example of a step for UI (I'll leave it as a template; adapt it to your runner)
       - name: Run UI tests (optional)
-        if: ${{ false }}  # change to true when ready
         run: |
           pytest -q tests/ui --maxfail=1 --disable-warnings \
             --html=reports/ui-report.html --self-contained-html

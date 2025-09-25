@@ -4,12 +4,13 @@ import stat
 from collections.abc import Generator
 
 import pytest
-from main_api import Api
-from main_ui import Ui
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+
+from test_scripts.main_api import Api
+from test_scripts.main_ui import Ui
 
 
 @pytest.fixture(scope="function", name="api")

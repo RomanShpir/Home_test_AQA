@@ -1,4 +1,4 @@
-from IpStackPage import IpStackPage
+from library.api.IpStackPage import IpStackPage
 
 
 class Api:

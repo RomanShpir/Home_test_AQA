@@ -1,5 +1,5 @@
-from BrowsePage import BrowsePage
-from Navigation import Navigation
+from library.ui.BrowsePage import BrowsePage
+from library.ui.Navigation import Navigation
 
 
 class Ui:
