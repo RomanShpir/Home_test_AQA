@@ -1,8 +1,9 @@
 import random
 
-from BasePage import BasePage
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
+
+from library.ui.BasePage import BasePage
 
 
 class Locators:

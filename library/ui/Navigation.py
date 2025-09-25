@@ -1,10 +1,11 @@
 import os
 import time
 
-from BasePage import BasePage
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+
+from library.ui.BasePage import BasePage
 
 
 class Locators:
