@@ -1,10 +1,12 @@
 from __future__ import annotations
+
 import requests
 from requests.structures import CaseInsensitiveDict
 
 
 class ResponseWrapper:
     """A wrapper around requests.Response to provide additional functionality."""
+
     def __init__(self, response: requests.Response):
         self._response = response
 
@@ -27,7 +29,7 @@ class ResponseWrapper:
     def content(self) -> bytes:
         return self._response.content
 
-    def check(self, *validators) -> "ResponseWrapper":
+    def check(self, *validators) -> ResponseWrapper:
         for v in validators:
             v.validate(self)
         return self  # fluent
@@ -41,10 +43,15 @@ class IpStackPage:
         self.session = requests.Session()
         self.session.params = {"access_key": access_key}
 
-    def standard_lookup(self, ip: str, *, hostname: int = 0,
-                        language: str | None = None,
-                        fields: str | None = None,
-                        output: str | None = None) -> ResponseWrapper:
+    def standard_lookup(
+        self,
+        ip: str,
+        *,
+        hostname: int = 0,
+        language: str | None = None,
+        fields: str | None = None,
+        output: str | None = None,
+    ) -> ResponseWrapper:
         """
         Perform a standard IP lookup with optional parameters.
 

@@ -1,5 +1,7 @@
 from __future__ import annotations
-from typing import Iterable
+
+from collections.abc import Iterable
+
 from IpStackPage import ResponseWrapper
 
 
@@ -13,6 +15,7 @@ class Validator:
 
 class StatusCodeIs(Validator):
     """Validator to check if the response status code matches the expected value."""
+
     def __init__(self, expected: int):
         self.expected = expected
 
@@ -20,11 +23,14 @@ class StatusCodeIs(Validator):
         """Validate that the response status code matches the expected value."""
         code = response.status_code
         if code != self.expected:
-            raise AssertionError(f"Status {code} != {self.expected}. Body: {response.response.text[:400]}")
+            raise AssertionError(
+                f"Status {code} != {self.expected}. Body: {response.response.text[:400]}"
+            )
 
 
 class HeaderStartsWith(Validator):
     """Validator to check if a specific header starts with a given prefix."""
+
     def __init__(self, header: str, prefix: str):
         self.header = header
         self.prefix = prefix
@@ -33,7 +39,9 @@ class HeaderStartsWith(Validator):
         """Validate that the specified header starts with the given prefix."""
         actual = response.headers.get(self.header, "")
         if not actual.startswith(self.prefix):
-            raise AssertionError(f"Header {self.header}='{actual}' does not start with '{self.prefix}'")
+            raise AssertionError(
+                f"Header {self.header}='{actual}' does not start with '{self.prefix}'"
+            )
 
 
 class IsJSON(Validator):
@@ -49,6 +57,7 @@ class IsJSON(Validator):
 
 class JsonFieldEquals(Validator):
     """Validator to check if a specific JSON field equals the expected value."""
+
     def __init__(self, field: str, expected):
         self.field = field
         self.expected = expected
@@ -63,6 +72,7 @@ class JsonFieldEquals(Validator):
 
 class JsonHasKeys(Validator):
     """Validator to check if the JSON response contains specific keys."""
+
     def __init__(self, keys: Iterable[str]):
         self.keys = list(keys)
 
@@ -71,11 +81,14 @@ class JsonHasKeys(Validator):
         data = response.json()
         missing = [k for k in self.keys if k not in data]
         if missing:
-            raise AssertionError(f"Missing JSON keys: {missing}. Got keys: {list(data.keys())[:30]}")
+            raise AssertionError(
+                f"Missing JSON keys: {missing}. Got keys: {list(data.keys())[:30]}"
+            )
 
 
 class JsonExactKeys(Validator):
     """Validator to check if the JSON response contains exactly the specified keys."""
+
     def __init__(self, keys: Iterable[str]):
         self.keys = sorted(list(keys))
 
@@ -99,6 +112,7 @@ class IsXML(Validator):
 
 class ContentContains(Validator):
     """Validator to check if the response content contains specific byte sequences."""
+
     def __init__(self, needles: Iterable[bytes]):
         self.needles = list(needles)
 

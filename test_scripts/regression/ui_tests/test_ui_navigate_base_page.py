@@ -5,7 +5,7 @@ def test_ui_navigate_base_page(ui: Ui):
     """
     Test to navigate to the base page and verify the title.
     """
-    game_category = 'StarCraft II'
+    game_category = "StarCraft II"
     ui.navigation.open_base_page()
     ui.navigation.menu_click("Browse")
     ui.navigation.locate_and_close_app_use_popup()

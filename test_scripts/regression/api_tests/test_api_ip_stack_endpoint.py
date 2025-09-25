@@ -1,8 +1,14 @@
 import pytest
 from main_api import Api
 from ValidatorsPage import (
-    StatusCodeIs, IsJSON, JsonHasKeys, JsonFieldEquals, JsonExactKeys,
-    IsXML, HeaderStartsWith, ContentContains
+    ContentContains,
+    HeaderStartsWith,
+    IsJSON,
+    IsXML,
+    JsonExactKeys,
+    JsonFieldEquals,
+    JsonHasKeys,
+    StatusCodeIs,
 )
 
 # ---- STANDARD LOOKUP CASES ----
@@ -58,6 +64,7 @@ standard_cases = [
         id="standard-xml",
     ),
 ]
+
 
 @pytest.mark.parametrize("case, validators", standard_cases)
 def test_standard_lookup_param_clean(api: Api, case, validators):

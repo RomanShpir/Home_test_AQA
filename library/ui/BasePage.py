@@ -1,15 +1,16 @@
 import time
-from typing import Tuple, cast
+from typing import cast
 
+from selenium.common import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.common import NoSuchElementException, TimeoutException
 
 
 class Locators:
     """Locators for the Base page."""
+
     ANY_TEXT_OBJECT = (By.XPATH, "//*[contains(text(), '{}')]")
 
 
@@ -17,6 +18,7 @@ class BasePage:
     """
     Class representing the base page of a web application, providing common methods for interaction and navigation.
     """
+
     def __init__(self, driver) -> None:
         """
         Initialize the Base page object.
@@ -52,7 +54,9 @@ class BasePage:
         except NoSuchElementException as exc:
             raise NoSuchElementException(f"Element with name '{xpath}' not found") from exc
         except TimeoutException as exc:
-            raise TimeoutException(f"Element with name '{xpath}' not clickable after {timeout} seconds") from exc
+            raise TimeoutException(
+                f"Element with name '{xpath}' not clickable after {timeout} seconds"
+            ) from exc
 
     def get_present_element(self, xpath: tuple[str, str], timeout: int = 30) -> WebElement:
         """
@@ -63,12 +67,16 @@ class BasePage:
         :return: WebElement, the clickable element.
         """
         try:
-            element = WebDriverWait(self.driver, timeout).until(ec.visibility_of_element_located(xpath))
+            element = WebDriverWait(self.driver, timeout).until(
+                ec.visibility_of_element_located(xpath)
+            )
             return element
         except NoSuchElementException as exc:
             raise NoSuchElementException(f"Element with name '{xpath}' not found") from exc
         except TimeoutException as exc:
-            raise TimeoutException(f"Element with name '{xpath}' not clickable after {timeout} seconds") from exc
+            raise TimeoutException(
+                f"Element with name '{xpath}' not clickable after {timeout} seconds"
+            ) from exc
 
     def find_elements_by_xpath(self, xpath: tuple) -> list[WebElement]:
         """
@@ -104,7 +112,7 @@ class BasePage:
         """
         try:
             WebDriverWait(self.driver, timeout).until(
-                lambda d: d.execute_script('return document.readyState') == 'complete'
+                lambda d: d.execute_script("return document.readyState") == "complete"
             )
         except TimeoutException as exc:
             raise TimeoutException(f"DOM did not load after {timeout} seconds") from exc
@@ -152,5 +160,5 @@ class BasePage:
         """
         lst = list(tpl)
         lst[1] = lst[1].format(format_value)
-        tuple_from_list = cast(Tuple[str, str], tuple(lst))
+        tuple_from_list = cast(tuple[str, str], tuple(lst))
         return tuple_from_list
