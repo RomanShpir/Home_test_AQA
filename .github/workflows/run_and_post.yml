@@ -43,6 +43,7 @@ jobs:
         env:
           API_ONLY: "1"# disables UI fixtures in root conftest
           IPSTACK_INVALID_KEY: foo
+          API_URL: ${{ vars.API_URL }}
           # If the switch is off, positive cases will be skipped:
           IPSTACK_API_KEY: ${{ github.event.inputs.use_ipstack_secret == 'true' && secrets.IPSTACK_API_KEY || '' }}
         run: |
@@ -82,6 +83,7 @@ jobs:
 
       - name: Run UI tests
         env:
+          UI_BASE_URL: ${{ vars.UI_URL }}
           # here we do NOT set API_ONLY so that UI fixtures rise
           CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: |
