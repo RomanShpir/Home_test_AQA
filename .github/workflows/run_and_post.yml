@@ -92,9 +92,11 @@ jobs:
           pytest -q test_scripts/regression/ui_tests --maxfail=1 --disable-warnings \
             --html=reports/ui-report.html --self-contained-html
 
-      - name: Upload UI report
+      - name: Upload UI report & screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ui-pytest-report
-          path: reports/
+          path: |
+            reports/
+            artifacts/screenshots/
