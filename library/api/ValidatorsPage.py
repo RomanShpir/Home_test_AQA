@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
-from IpStackPage import ResponseWrapper
+from library.api.IpStackPage import ResponseWrapper
 
 
 class Validator:
