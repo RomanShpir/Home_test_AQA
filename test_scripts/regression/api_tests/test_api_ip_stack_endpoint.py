@@ -1,5 +1,6 @@
 import pytest
-from ValidatorsPage import (
+
+from library.api.ValidatorsPage import (
     ContentContains,
     HeaderStartsWith,
     IsJSON,
@@ -9,7 +10,6 @@ from ValidatorsPage import (
     JsonHasKeys,
     StatusCodeIs,
 )
-
 from test_scripts.main_api import Api
 
 # ---- STANDARD LOOKUP CASES ----
