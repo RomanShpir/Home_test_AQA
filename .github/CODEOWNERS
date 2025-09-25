@@ -1,1 +1,7 @@
-* @RomanShpir
+# comments via #
+# Format: <path> @user_or_team
+
+* @RomanShpir # all files
+.github/ @team-leads # .github folder for the team
+test_scripts/ @RomanShpir @qa-team # folder for multiple people
+*.py @python-experts # all .py files
